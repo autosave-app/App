@@ -10,6 +10,18 @@ const ENVIRONMENT_URLS = {
     [CONST.ENVIRONMENT.PRODUCTION]: CONST.NEW_EXPENSIFY_URL,
 };
 
+const SECURE_ENVIRONMENT_URLS = {
+    [CONST.ENVIRONMENT.DEV]: CONST.DEV_NEW_EXPENSIFY_URL + CONFIG.DEV_PORT,
+    [CONST.ENVIRONMENT.STAGING]: CONFIG.EXPENSIFY.STAGING_SECURE_EXPENSIFY_URL,
+    [CONST.ENVIRONMENT.PRODUCTION]: CONFIG.EXPENSIFY.SECURE_EXPENSIFY_URL,
+};
+
+const UNSECURE_ENVIRONMENT_URLS = {
+    [CONST.ENVIRONMENT.DEV]: CONST.DEV_NEW_EXPENSIFY_URL + CONFIG.DEV_PORT,
+    [CONST.ENVIRONMENT.STAGING]: CONFIG.EXPENSIFY.STAGING_EXPENSIFY_URL,
+    [CONST.ENVIRONMENT.PRODUCTION]: CONFIG.EXPENSIFY.URL_API_ROOT,
+};
+
 /**
  * Are we running the app in development?
  *
@@ -31,8 +43,34 @@ function getEnvironmentURL() {
     });
 }
 
+/**
+ * Get the URL based on the environment we are in
+ *
+ * @returns {Promise}
+ */
+function getSecureEnvironmentURL() {
+    return new Promise((resolve) => {
+        getEnvironment()
+            .then(environment => resolve(SECURE_ENVIRONMENT_URLS[environment]));
+    });
+}
+
+/**
+ * Get the URL based on the environment we are in
+ *
+ * @returns {Promise}
+ */
+function getUnsecureEnvironmentURL() {
+    return new Promise((resolve) => {
+        getEnvironment()
+            .then(environment => resolve(UNSECURE_ENVIRONMENT_URLS[environment]));
+    });
+}
+
 export {
     getEnvironment,
     isDevelopment,
     getEnvironmentURL,
+    getSecureEnvironmentURL,
+    getUnsecureEnvironmentURL,
 };
