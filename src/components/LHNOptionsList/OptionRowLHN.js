@@ -113,6 +113,7 @@ const OptionRowLHN = (props) => {
                         styles.justifyContentBetween,
                         styles.sidebarLink,
                         styles.sidebarLinkInner,
+                        {paddingRight: 0},
                         StyleUtils.getBackgroundColorStyle(themeColors.sidebar),
                         props.isFocused ? styles.sidebarLinkActive : null,
                         hovered && !props.isFocused ? props.hoverStyle : null,
